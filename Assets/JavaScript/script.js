@@ -11,7 +11,7 @@ document.getElementById('searchBtn').addEventListener('click', () => {
 // Function to fetch weather data from OpenWeatherMap API.
 function fetchWeatherData(city) {
     // Constructing the API URL with the city name and API key.
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`)
         .then(response => response.json())
         .then(data => {
             displayCurrentWeather(data);
