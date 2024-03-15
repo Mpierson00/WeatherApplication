@@ -16,7 +16,7 @@ function fetchWeatherData(city) {
 }
 
 function displayCurrentWeather(data) {
-    const current = data.list(0);
+    const current = data.list[0];
     const currentWeatherHtml = `
     <h2 class="text-lg font-bold">${data.city.name} (${new Date(current.dt * 1000).toLocaleDateString()})</h2>
     <img src="http://openweathermap.org/img/wn/${current.weather[0].icon}.png" alt="Weather icon">
@@ -28,25 +28,25 @@ function displayCurrentWeather(data) {
 }
 
 function displayForecast(data) {
-    const forecastHtml = '<h2 class="text-lg font-bold">5-Day Forecast:</h2><div class="flex space-x-4">';
-    for (const i = 0; 1 < data.list.length; i += 8) {
+    let forecastHtml = '<h2 class="text-lg font-bold">5-Day Forecast:</h2><div class="flex space-x-4">';
+    for (let i = 0; i < data.list.length; i += 8) {
         const forecast = data.list[i];
-        forecastHtml = + `
-       < div class="p-4 bg-white rounded" >
-        <h3>${new Date(forecast.dt * 1000).toLocaleDateString()}</h3>
-        <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png" alt="Weather icon">
-        <p>Temp: ${forecast.main.temp} °F</p>
-        <p>Humidity: ${forecast.main.humidity}%</p>
-        <p>Wind: ${forecast.wind.speed} m/s</p>
-      </div>
-     `;
+        forecastHtml += `
+            <div class="p-4 bg-white rounded">
+                <h3>${new Date(forecast.dt * 1000).toLocaleDateString()}</h3>
+                <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png" alt="Weather icon">
+                <p>Temp: ${forecast.main.temp} °F</p>
+                <p>Humidity: ${forecast.main.humidity}%</p>
+                <p>Wind: ${forecast.wind.speed} m/s</p>
+            </div>
+        `;
     }
     forecastHtml += '</div>';
-    document.getElementById('forcast').innerHTML = forecastHtml;
+    document.getElementById('forecast').innerHTML = forecastHtml;
 }
 
 function updateSearchHistory(city) {
-    const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
     if (!searchHistory.includes(city)) {
         searchHistory.push(city);
         localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
@@ -56,9 +56,9 @@ function updateSearchHistory(city) {
 
 function displaySearchHistory() {
     const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-    const historyHtml = '<h2 class="text-lg font-bold">Search History:</h2>';
+    let historyHtml = '<h2 class="text-lg font-bold">Search History:</h2>';
     searchHistory.forEach(city => {
-        historyHtml =+ `<button onclick="fetchWeatherData('${city}')" class="bg-gray-300 hover:bg-gray-400 text-black py-2 px-4 rounded block">${city}</button>`;
+        historyHtml += `<button onclick="fetchWeatherData('${city}')" class="bg-gray-300 hover:bg-gray-400 text-black py-2 px-4 rounded block">${city}</button>`;
     });
     document.getElementById('searchHistory').innerHTML = historyHtml;
 }
