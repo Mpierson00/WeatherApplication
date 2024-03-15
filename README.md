@@ -36,7 +36,7 @@ A modern and user-friendly web application that provides real-time weather infor
 
 I am always looking to improve my portfolio and welcome contributions and suggestions. Feel free to fork the repository, make changes, and submit a pull request. If you have any questions or suggestions, please don't hesitate to contact me.
 
-![Weather Application](./Assets/Images/127.0.0._5501_Class-Project_WeatherApplication_index.html.png)
+![Weather Application](./Assets/Images/127.0.0.1_5501_Class-Project_WeatherApplication_index.html.png)
 
 ## License
 MIT License 
