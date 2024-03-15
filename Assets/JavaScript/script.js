@@ -53,3 +53,14 @@ function updateSearchHistory(city) {
     }
     displaySearchHistory();
 }
+
+function displaySearchHistory() {
+    const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    const historyHtml = '<h2 class="text-lg font-bold">Search History:</h2>';
+    searchHistory.forEach(city => {
+        historyHtml =+ `<button onclick="fetchWeatherData('${city}')" class="bg-gray-300 hover:bg-gray-400 text-black py-2 px-4 rounded block">${city}</button>`;
+    });
+    document.getElementById('searchHistory').innerHTML = historyHtml;
+}
+
+displaySearchHistory();
