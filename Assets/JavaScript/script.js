@@ -1,12 +1,16 @@
+// Assigning the API key to a variable for easy reference and potential future changes.
 const apiKey = '975ba205d260aeafc30576273d2bf34d';
 
+// Adding an event listener to the search button to trigger data fetching when clicked.
 document.getElementById('searchBtn').addEventListener('click', () => {
     const city = document.getElementById('cityInput').value;
     fetchWeatherData(city);
     updateSearchHistory(city);
 });
 
+// Function to fetch weather data from OpenWeatherMap API.
 function fetchWeatherData(city) {
+    // Constructing the API URL with the city name and API key.
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`)
         .then(response => response.json())
         .then(data => {
@@ -15,8 +19,10 @@ function fetchWeatherData(city) {
         });
 }
 
+// Function to display the current weather information.
 function displayCurrentWeather(data) {
     const current = data.list[0];
+    // Constructing HTML content with the current weather data.
     const currentWeatherHtml = `
     <div class="text-center">
         <h2>${data.city.name} (${new Date(current.dt * 1000).toLocaleDateString()})</h2>
@@ -28,10 +34,12 @@ function displayCurrentWeather(data) {
     document.getElementById('currentWeather').innerHTML = currentWeatherHtml;
 }
 
+// Function to display the 5-day weather forecast.
 function displayForecast(data) {
     let forecastHtml = '<h3 class="text-center mb-3">5-Day Forecast:</h3><div class="d-flex justify-content-between">';
     for (let i = 0; i < data.list.length; i += 8) {
         const forecast = data.list[i];
+         // Appending forecast data for each day to the forecastHtml string.
         forecastHtml += `
             <div class="card">
                 <div class="card-body">
@@ -48,6 +56,7 @@ function displayForecast(data) {
     document.getElementById('forecast').innerHTML = forecastHtml;
 }
 
+// Function to update and display the search history.
 function updateSearchHistory(city) {
     let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
     if (!searchHistory.includes(city)) {
@@ -66,6 +75,7 @@ function displaySearchHistory() {
     document.getElementById('searchHistory').innerHTML = historyHtml;
 }
 
+// Theme toggle functionality
 document.getElementById('themeToggle').addEventListener('click', () => {
     document.body.classList.toggle('dark');
     localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
