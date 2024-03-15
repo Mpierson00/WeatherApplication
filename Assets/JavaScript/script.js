@@ -81,10 +81,11 @@ document.getElementById('themeToggle').addEventListener('click', () => {
     localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
 });
 
-// Load the theme from localStorage
+// Loading the saved theme from local storage on page load.
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
     document.body.classList.add(savedTheme);
 }
 
+// Ensuring the search history is displayed when the page loads.
 displaySearchHistory();

@@ -1,3 +1,4 @@
+/* Setting root variables for easy theme customization. */
 :root {
     --primary-bg: #f8f9fa;
     --primary-text: #212529;
@@ -9,11 +10,13 @@
     transition: background-color 0.3s, color 0.3s;
   }
   
+  /* Dark theme settings applied when the 'dark' class is added to the body. */
   body.dark {
     --primary-bg: #343a40;
     --primary-text: #f8f9fa;
   }
   
+  /* Ensuring cards transition smoothly between themes. */
   .card {
     transition: background-color 0.3s;
   }
@@ -40,6 +43,7 @@
     padding-left: 15px;
   }
   
+  /* Styling for the current weather and forecast sections. */
   #currentWeather, #forecast {
     background: #fff;
     padding: 20px;
@@ -47,6 +51,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
+  /* Adjusting the background for these sections in dark mode. */
   body.dark #currentWeather, body.dark #forecast {
     background: #495057;
   }
