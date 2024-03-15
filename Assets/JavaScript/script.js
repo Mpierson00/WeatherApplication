@@ -44,3 +44,12 @@ function displayForecast(data) {
     forecastHtml += '</div>';
     document.getElementById('forcast').innerHTML = forecastHtml;
 }
+
+function updateSearchHistory(city) {
+    const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    if (!searchHistory.includes(city)) {
+        searchHistory.push(city);
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    }
+    displaySearchHistory();
+}
