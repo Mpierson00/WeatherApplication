@@ -18,26 +18,29 @@ function fetchWeatherData(city) {
 function displayCurrentWeather(data) {
     const current = data.list[0];
     const currentWeatherHtml = `
-    <h2 class="text-lg font-bold">${data.city.name} (${new Date(current.dt * 1000).toLocaleDateString()})</h2>
-    <img src="http://openweathermap.org/img/wn/${current.weather[0].icon}.png" alt="Weather icon">
-    <p>Temperature: ${current.main.temp} °F</p>
-    <p>Humidity: ${current.main.humidity}%</p>
-    <p>Wind Speed: ${current.wind.speed} m/s</p>
-    `;
+    <div class="text-center">
+        <h2>${data.city.name} (${new Date(current.dt * 1000).toLocaleDateString()})</h2>
+        <img src="http://openweathermap.org/img/wn/${current.weather[0].icon}.png" alt="Weather icon">
+        <p class="lead">Temperature: ${current.main.temp} °F</p>
+        <p>Humidity: ${current.main.humidity}%</p>
+        <p>Wind Speed: ${current.wind.speed} m/s</p>
+    </div>`;
     document.getElementById('currentWeather').innerHTML = currentWeatherHtml;
 }
 
 function displayForecast(data) {
-    let forecastHtml = '<h2 class="text-lg font-bold">5-Day Forecast:</h2><div class="flex space-x-4">';
+    let forecastHtml = '<h3 class="text-center mb-3">5-Day Forecast:</h3><div class="d-flex justify-content-between">';
     for (let i = 0; i < data.list.length; i += 8) {
         const forecast = data.list[i];
         forecastHtml += `
-            <div class="p-4 bg-white rounded">
-                <h3>${new Date(forecast.dt * 1000).toLocaleDateString()}</h3>
-                <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png" alt="Weather icon">
-                <p>Temp: ${forecast.main.temp} °F</p>
-                <p>Humidity: ${forecast.main.humidity}%</p>
-                <p>Wind: ${forecast.wind.speed} m/s</p>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">${new Date(forecast.dt * 1000).toLocaleDateString()}</h5>
+                    <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png" alt="Weather icon">
+                    <p class="card-text">Temp: ${forecast.main.temp} °F</p>
+                    <p class="card-text">Humidity: ${forecast.main.humidity}%</p>
+                    <p class="card-text">Wind: ${forecast.wind.speed} m/s</p>
+                </div>
             </div>
         `;
     }
@@ -56,11 +59,22 @@ function updateSearchHistory(city) {
 
 function displaySearchHistory() {
     const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-    let historyHtml = '<h2 class="text-lg font-bold">Search History:</h2>';
+    let historyHtml = '<h3 class="mb-3">Search History:</h3>';
     searchHistory.forEach(city => {
-        historyHtml += `<button onclick="fetchWeatherData('${city}')" class="bg-gray-300 hover:bg-gray-400 text-black py-2 px-4 rounded block">${city}</button>`;
+        historyHtml += `<button onclick="fetchWeatherData('${city}')" class="btn btn-secondary w-100 mb-2">${city}</button>`;
     });
     document.getElementById('searchHistory').innerHTML = historyHtml;
+}
+
+document.getElementById('themeToggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+});
+
+// Load the theme from localStorage
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    document.body.classList.add(savedTheme);
 }
 
 displaySearchHistory();

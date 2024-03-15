@@ -1,0 +1,56 @@
+:root {
+    --primary-bg: #f8f9fa;
+    --primary-text: #212529;
+  }
+  
+  body {
+    background-color: var(--primary-bg);
+    color: var(--primary-text);
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  body.dark {
+    --primary-bg: #343a40;
+    --primary-text: #f8f9fa;
+  }
+  
+  .card {
+    transition: background-color 0.3s;
+  }
+  
+  body.dark .card {
+    background-color: #495057;
+  }
+  
+  .btn-secondary {
+    transition: background-color 0.3s;
+  }
+  
+  body.dark .btn-secondary {
+    background-color: #6c757d;
+  }
+  
+  /* Additional styles for modern look */
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  #weatherInfo {
+    padding-left: 15px;
+  }
+  
+  #currentWeather, #forecast {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  body.dark #currentWeather, body.dark #forecast {
+    background: #495057;
+  }
+  
+  .input-group {
+    max-width: 500px;
+  }
