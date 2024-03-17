@@ -61,6 +61,11 @@ function updateSearchHistory(city) {
     let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
     if (!searchHistory.includes(city)) {
         searchHistory.push(city);
+        // Limit search history to 7
+        if (searchHistory.length > 7) {
+            // remove oldest search to keep limit to 7
+            searchHistory.shift();
+        }
         localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
     }
     displaySearchHistory();
@@ -69,7 +74,7 @@ function updateSearchHistory(city) {
 function displaySearchHistory() {
     const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
     let historyHtml = '<h3 class="mb-3">Search History:</h3>';
-    searchHistory.forEach(city => {
+    searchHistory.slice(-7).forEach(city => {
         historyHtml += `<button onclick="fetchWeatherData('${city}')" class="btn btn-secondary w-100 mb-2">${city}</button>`;
     });
     document.getElementById('searchHistory').innerHTML = historyHtml;
